@@ -41,7 +41,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/main_email_title"
-            android:hint="@string/main_email_hint" />
+            android:hint="@string/main_email_hint"
+            android:inputType="textEmailAddress" />
 
         <TextView
             android:id="@+id/main_password_title"
@@ -56,7 +57,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/main_password_title"
-            android:hint="@string/main_password_hint" />
+            android:hint="@string/main_password_hint"
+            android:inputType="textPassword" />
 
         <LinearLayout
             android:layout_width="wrap_content"
