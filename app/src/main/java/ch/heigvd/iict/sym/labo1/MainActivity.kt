@@ -1,10 +1,16 @@
 package ch.heigvd.iict.sym.labo1
 
+import android.app.AlertDialog
+import android.content.DialogInterface
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
+
+const val PASSED_PROPS_EMAIL = "email.MESSAGE"
 
 class MainActivity : AppCompatActivity() {
 
@@ -61,7 +67,7 @@ class MainActivity : AppCompatActivity() {
             val emailInput = email.text?.toString()
             val passwordInput = password.text?.toString()
 
-            if(emailInput.isNullOrEmpty() or passwordInput.isNullOrEmpty()) {
+            if (emailInput.isNullOrEmpty() or passwordInput.isNullOrEmpty()) {
                 // on affiche un message dans les logs de l'application
                 Log.d(TAG, "Au moins un des deux champs est vide")
                 // on affiche un message d'erreur sur les champs qui n'ont pas été renseignés
@@ -76,7 +82,32 @@ class MainActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            //TODO à compléter...
+            if (!emailInput!!.contains('@')){
+                val toast = Toast.makeText(applicationContext, getString(R.string.main_email_format), Toast.LENGTH_SHORT)
+                toast.show()
+                return@setOnClickListener
+            }
+
+            if (!credentials.contains(Pair(emailInput, passwordInput))) {
+                val builder = AlertDialog.Builder(this)
+                builder.setMessage(getString(R.string.main_dialog_error_title))
+                    .setPositiveButton(getString(R.string.main_dialog_confirm),
+                        DialogInterface.OnClickListener { dialog, id ->
+                            password.text?.clear()
+                        })
+                builder.create()
+                builder.show()
+
+                return@setOnClickListener
+            }
+
+            // Auth success
+            // Launch activity
+            val intent = Intent(this, AuthActivity::class.java).apply {
+                putExtra(PASSED_PROPS_EMAIL, emailInput)
+            }
+            startActivity(intent)
+
         }
     }
 
@@ -88,6 +119,6 @@ class MainActivity : AppCompatActivity() {
     // avec les autres éléments non-static de la classe
     companion object {
         private const val TAG: String = "MainActivity"
-    }
 
+    }
 }
