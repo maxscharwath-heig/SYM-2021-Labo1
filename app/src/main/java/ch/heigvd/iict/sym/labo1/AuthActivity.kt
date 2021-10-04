@@ -1,12 +1,11 @@
 package ch.heigvd.iict.sym.labo1
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
 import ch.heigvd.iict.sym.labo1.network.ImageDownloader
 
-class AuthActivity : AppCompatActivity() {
+class AuthActivity : LoggerActivity() {
 
     private lateinit var connectedEmailTextView : TextView;
     private lateinit var connectedImageView: ImageView;

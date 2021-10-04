@@ -2,11 +2,8 @@ package ch.heigvd.iict.sym.labo1
 
 import android.app.Activity
 import android.app.AlertDialog
-import android.content.DialogInterface
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -14,13 +11,13 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : LoggerActivity() {
 
     // on définit une liste de couples e-mail / mot de passe
     // ceci est fait juste pour simplifier ce premier laboratoire,
     // mais il est évident que de hardcoder ceux-ci est une pratique à éviter à tout prix...
     // /!\ listOf() retourne une List<T> qui est immuable
-    private val credentials = listOf(
+    private var credentials = listOf(
                                 Pair("user1@heig-vd.ch","1234"),
                                 Pair("user2@heig-vd.ch","abcd")
                             )
@@ -74,7 +71,7 @@ class MainActivity : AppCompatActivity() {
 
             if (emailInput.isNullOrEmpty() or passwordInput.isNullOrEmpty()) {
                 // on affiche un message dans les logs de l'application
-                Log.d(TAG, "Au moins un des deux champs est vide")
+                super.log("Au moins un des deux champs est vide")
                 // on affiche un message d'erreur sur les champs qui n'ont pas été renseignés
                 // la méthode getString permet de charger un String depuis les ressources de
                 // l'application à partir de son id
@@ -96,10 +93,9 @@ class MainActivity : AppCompatActivity() {
             if (!credentials.contains(Pair(emailInput, passwordInput))) {
                 val builder = AlertDialog.Builder(this)
                 builder.setMessage(getString(R.string.main_dialog_error_title))
-                    .setPositiveButton(getString(R.string.main_dialog_confirm),
-                        DialogInterface.OnClickListener { dialog, id ->
-                            password.text?.clear()
-                        })
+                    .setPositiveButton(getString(R.string.main_dialog_confirm)) { dialog, id ->
+                        password.text?.clear()
+                    }
                 builder.create()
                 builder.show()
 
@@ -117,6 +113,7 @@ class MainActivity : AppCompatActivity() {
 
         registerButton.setOnClickListener {
 
+            // Call the Register Activity and get its result
             getAndCreateNewUser.launch(Intent(this, RegisterActivity::class.java))
             return@setOnClickListener
         }
@@ -126,22 +123,12 @@ class MainActivity : AppCompatActivity() {
         if (result.resultCode == Activity.RESULT_OK) {
             val intent = result.data
 
-            if (intent != null) {
+            val newUser = Pair(
+                intent?.getStringExtra("newUser.email").toString(),
+                intent?.getStringExtra("newUser.password").toString())
 
-                intent.getStringExtra("newUser.email")?.let { Log.d(TAG, it) }
-                intent.getStringExtra("newUser.password")?.let { Log.d(TAG, it) }
-            }
+            // This recreates a new listOf() with the new user, because listOf is not mutable
+            credentials += newUser
         }
-    }
-
-    // En Kotlin, les variables static ne sont pas tout à fait comme en Java
-    // pour des raison de lisibilité du code, les variables et méthodes static
-    // d'une classe doivent être regroupées dans un bloc à part: le companion object
-    // cela permet d'avoir un aperçu plus rapide de tous les éléments static d'une classe
-    // sans devoir trouver le modifieur dans la définition de ceux-ci, qui peuvent être mélangé
-    // avec les autres éléments non-static de la classe
-    companion object {
-        private const val TAG: String = "MainActivity"
-
     }
 }

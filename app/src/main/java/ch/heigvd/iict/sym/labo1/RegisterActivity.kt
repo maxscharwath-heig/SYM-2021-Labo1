@@ -1,19 +1,13 @@
 package ch.heigvd.iict.sym.labo1
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import android.app.Activity
 
 import android.content.Intent
 
-
-
-
-class RegisterActivity : AppCompatActivity() {
+class RegisterActivity : LoggerActivity() {
     private lateinit var email: EditText
     private lateinit var password: EditText
     private lateinit var cancelButton: Button
@@ -28,6 +22,13 @@ class RegisterActivity : AppCompatActivity() {
         cancelButton = findViewById(R.id.register_cancel)
         validateButton = findViewById(R.id.register_validate)
 
+        cancelButton.setOnClickListener {
+            setResult(RESULT_CANCELED)
+            finish()
+
+            return@setOnClickListener
+        }
+
         validateButton.setOnClickListener {
 
             val emailInput = email.text?.toString()
@@ -35,7 +36,7 @@ class RegisterActivity : AppCompatActivity() {
 
             if (emailInput.isNullOrEmpty() or passwordInput.isNullOrEmpty()) {
                 // on affiche un message dans les logs de l'application
-                Log.d(TAG, "Au moins un des deux champs est vide")
+                super.log("Au moins un des deux champs est vide")
                 // on affiche un message d'erreur sur les champs qui n'ont pas été renseignés
                 // la méthode getString permet de charger un String depuis les ressources de
                 // l'application à partir de son id
@@ -54,7 +55,7 @@ class RegisterActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            // Get values and send them to the main activity
+            // Get values and send them to the caller activity
             val returnIntent = Intent().apply {
                 putExtra("newUser.email", emailInput)
                 putExtra("newUser.password", passwordInput)
@@ -65,9 +66,5 @@ class RegisterActivity : AppCompatActivity() {
 
             return@setOnClickListener
         }
-    }
-
-    companion object {
-        private const val TAG: String = "RegisterActivity"
     }
 }
