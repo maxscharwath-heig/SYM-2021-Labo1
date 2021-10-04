@@ -15,13 +15,13 @@ class AuthActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_auth)
 
-        val passedEmail = intent.getStringExtra(PASSED_PROPS_EMAIL)
+        val passedEmail = intent.getStringExtra("connectedEmail")
 
         connectedEmailTextView = findViewById(R.id.connected_email)
         connectedEmailTextView.setText(passedEmail)
 
         connectedImageView = findViewById(R.id.connected_image)
 
-        val picture = ImageDownloader(connectedImageView, "https://thispersondoesnotexist.com/image").show()
+        ImageDownloader(connectedImageView, "https://thispersondoesnotexist.com/image").show()
     }
 }

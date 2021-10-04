@@ -1,5 +1,6 @@
 package ch.heigvd.iict.sym.labo1
 
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.Intent
@@ -8,9 +9,10 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
-
-const val PASSED_PROPS_EMAIL = "email.MESSAGE"
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 
 class MainActivity : AppCompatActivity() {
 
@@ -29,6 +31,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var password: EditText
     private lateinit var cancelButton: Button
     private lateinit var validateButton: Button
+    private lateinit var registerButton: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         // l'appel à la méthode onCreate de la super classe est obligatoire
@@ -43,6 +46,7 @@ class MainActivity : AppCompatActivity() {
         password = findViewById(R.id.main_password)
         cancelButton = findViewById(R.id.main_cancel)
         validateButton = findViewById(R.id.main_validate)
+        registerButton = findViewById(R.id.main_new_account)
         // Kotlin, au travers des Android Kotlin Extensions permet d'automatiser encore plus cette
         // étape en créant automatiquement les variables pour tous les éléments graphiques présents
         // dans le layout et disposant d'un id
@@ -56,6 +60,7 @@ class MainActivity : AppCompatActivity() {
             // on annule les éventuels messages d'erreur présents sur les champs de saisie
             email.error = null
             password.error = null
+            return@setOnClickListener
         }
 
         validateButton.setOnClickListener {
@@ -104,10 +109,28 @@ class MainActivity : AppCompatActivity() {
             // Auth success
             // Launch activity
             val intent = Intent(this, AuthActivity::class.java).apply {
-                putExtra(PASSED_PROPS_EMAIL, emailInput)
+                putExtra("connectedEmail", emailInput)
             }
             startActivity(intent)
+            return@setOnClickListener
+        }
 
+        registerButton.setOnClickListener {
+
+            getAndCreateNewUser.launch(Intent(this, RegisterActivity::class.java))
+            return@setOnClickListener
+        }
+    }
+
+    val getAndCreateNewUser = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val intent = result.data
+
+            if (intent != null) {
+
+                intent.getStringExtra("newUser.email")?.let { Log.d(TAG, it) }
+                intent.getStringExtra("newUser.password")?.let { Log.d(TAG, it) }
+            }
         }
     }
 

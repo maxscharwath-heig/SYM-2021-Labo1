@@ -11,5 +11,7 @@
     <string name="main_email_format">Format d\'e-mail invalide</string>
     <string name="main_dialog_error_title">Erreur email ou mot de passe</string>
     <string name="main_dialog_confirm">OK</string>
+    <string name="register_email">Nouvel email</string>
+    <string name="register_password">Nouveau mot de passe</string>
 
 </resources>

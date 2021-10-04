@@ -11,5 +11,7 @@
     <string name="main_email_format">Invalid email format</string>
     <string name="main_dialog_error_title">Wrong credentials</string>
     <string name="main_dialog_confirm">OK</string>
+    <string name="register_email">New email</string>
+    <string name="register_password">New password</string>
 
 </resources>

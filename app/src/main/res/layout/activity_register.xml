@@ -8,18 +8,18 @@
     android:layout_marginEnd="@dimen/app_horizontal_margin"
     android:layout_marginTop="@dimen/app_vertical_margin"
     android:layout_marginBottom="@dimen/app_vertical_margin"
-    tools:context=".MainActivity">
+    tools:context=".RegisterActivity">
 
     <ImageView
         android:id="@+id/main_logo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:tint="@color/colorPrimaryDark"
+        android:layout_width="129dp"
+        android:layout_height="147dp"
+        android:contentDescription="@string/main_icon_desc"
         app:layout_constraintBottom_toTopOf="@+id/relativeLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/ic_launcher_foreground"
-        android:contentDescription="@string/main_icon_desc" />
+        app:srcCompat="@drawable/create_account"
+        app:tint="@color/colorPrimaryDark" />
 
     <RelativeLayout
         android:id="@+id/relativeLayout"
@@ -31,51 +31,51 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/main_email_title"
+            android:id="@+id/register_email_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/main_email_hint" />
+            android:text="@string/register_email" />
 
         <EditText
-            android:id="@+id/main_email"
+            android:id="@+id/register_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/main_email_title"
-            android:hint="@string/main_email_hint"
+            android:layout_below="@id/register_email_title"
+            android:hint="@string/register_email"
             android:inputType="textEmailAddress" />
 
         <TextView
-            android:id="@+id/main_password_title"
+            android:id="@+id/register_password_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/main_email"
+            android:layout_below="@id/register_email"
             android:layout_marginTop="@dimen/app_vertical_separation"
-            android:text="@string/main_password_hint" />
+            android:text="@string/register_password" />
 
         <EditText
-            android:id="@+id/main_password"
+            android:id="@+id/register_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/main_password_title"
-            android:hint="@string/main_password_hint"
+            android:layout_below="@id/register_password_title"
+            android:hint="@string/register_password"
             android:inputType="textPassword" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/main_password"
+            android:layout_below="@id/register_password"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/app_vertical_separation"
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/main_cancel"
+                android:id="@+id/register_cancel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/main_cancel_btn" />
 
             <Button
-                android:id="@+id/main_validate"
+                android:id="@+id/register_validate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/app_horizontal_separation"
@@ -84,17 +84,5 @@
         </LinearLayout>
 
     </RelativeLayout>
-
-    <TextView
-        android:id="@+id/main_new_account"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/main_create_account"
-        android:clickable="true"
-        android:textColor="@color/colorPrimary"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:focusable="true" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

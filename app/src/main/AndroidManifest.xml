@@ -14,6 +14,9 @@
             android:name=".AuthActivity"
             android:exported="true" />
         <activity
+            android:name=".RegisterActivity"
+            android:exported="true" />
+        <activity
             android:name=".MainActivity"
             android:windowSoftInputMode="stateHidden|adjustResize">
             <intent-filter>
