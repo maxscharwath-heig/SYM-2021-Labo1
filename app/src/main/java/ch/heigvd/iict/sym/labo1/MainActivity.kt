@@ -11,6 +11,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import ch.heigvd.iict.sym.labo1.utils.Validator
 
 class MainActivity : LoggerActivity() {
 
@@ -66,25 +67,13 @@ class MainActivity : LoggerActivity() {
             //on récupère le contenu de deux champs dans des variables de type String
             val emailInput = email.text?.toString()
             val passwordInput = password.text?.toString()
+            val validator = Validator(applicationContext, email, password)
 
-            if (emailInput.isNullOrEmpty() or passwordInput.isNullOrEmpty()) {
-                // on affiche un message dans les logs de l'application
-                super.log("Au moins un des deux champs est vide")
-                // on affiche un message d'erreur sur les champs qui n'ont pas été renseignés
-                // la méthode getString permet de charger un String depuis les ressources de
-                // l'application à partir de son id
-                if(emailInput.isNullOrEmpty())
-                    email.error = getString(R.string.main_mandatory_field)
-                if(passwordInput.isNullOrEmpty())
-                    password.error = getString(R.string.main_mandatory_field)
-                // Pour les fonctions lambda, on doit préciser à quelle fonction l'appel à return
-                // doit être appliqué
+            if (!validator.validateNotEmpty()) {
                 return@setOnClickListener
             }
 
-            if (!Patterns.EMAIL_ADDRESS.matcher(emailInput!!).matches()){
-                val toast = Toast.makeText(applicationContext, getString(R.string.main_email_format), Toast.LENGTH_SHORT)
-                toast.show()
+            if (validator.validateEmailFormat()){
                 return@setOnClickListener
             }
 
