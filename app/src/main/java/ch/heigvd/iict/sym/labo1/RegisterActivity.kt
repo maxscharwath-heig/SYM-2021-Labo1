@@ -9,6 +9,9 @@ import android.content.Intent
 import android.util.Patterns
 import ch.heigvd.iict.sym.labo1.utils.Validator
 
+/**
+ * Activity that lest the user register a new account
+ */
 class RegisterActivity : LoggerActivity() {
     private lateinit var email: EditText
     private lateinit var password: EditText

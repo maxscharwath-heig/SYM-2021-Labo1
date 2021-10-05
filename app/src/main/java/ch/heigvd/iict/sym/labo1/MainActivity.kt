@@ -70,6 +70,8 @@ class MainActivity : LoggerActivity() {
             val validator = Validator(applicationContext, email, password)
 
             if (!validator.validateNotEmpty()) {
+                // Pour les fonctions lambda, on doit préciser à quelle fonction l'appel à return
+                // doit être appliqué
                 return@setOnClickListener
             }
 
@@ -77,8 +79,11 @@ class MainActivity : LoggerActivity() {
                 return@setOnClickListener
             }
 
+            //here we check if the credentials are registered in the app
             if (!credentials.contains(Pair(emailInput, passwordInput))) {
+                log("The username or password is not registered")
                 val builder = AlertDialog.Builder(this)
+                //if they arent we tell the user and log the problem
                 builder.setMessage(getString(R.string.main_dialog_error_title))
                     .setPositiveButton(getString(R.string.main_dialog_confirm)) { dialog, id ->
                         password.text?.clear()
@@ -89,9 +94,9 @@ class MainActivity : LoggerActivity() {
                 return@setOnClickListener
             }
 
-            // Auth success
-            // Launch activity
+            // If the authentication is successful we launch the next activity
             val intent = Intent(this, AuthActivity::class.java).apply {
+                //here we pass a parameter to the next activity
                 putExtra("connectedEmail", emailInput)
             }
             startActivity(intent)
@@ -99,7 +104,6 @@ class MainActivity : LoggerActivity() {
         }
 
         registerButton.setOnClickListener {
-
             // Call the Register Activity and get its result
             getAndCreateNewUser.launch(Intent(this, RegisterActivity::class.java))
             return@setOnClickListener
@@ -115,7 +119,7 @@ class MainActivity : LoggerActivity() {
                 intent?.getStringExtra("newUser.password").toString()
             )
 
-            // This recreates a new listOf() with the new user, because listOf is not mutable
+            // We add the new user to the credentials list
             credentials.add(newUser);
         }
     }
