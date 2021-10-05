@@ -6,6 +6,7 @@ import android.widget.EditText
 import android.widget.Toast
 
 import android.content.Intent
+import android.util.Patterns
 
 class RegisterActivity : LoggerActivity() {
     private lateinit var email: EditText
@@ -49,7 +50,7 @@ class RegisterActivity : LoggerActivity() {
                 return@setOnClickListener
             }
 
-            if (!emailInput!!.contains('@')){
+            if (!Patterns.EMAIL_ADDRESS.matcher(emailInput!!).matches()){
                 val toast = Toast.makeText(applicationContext, getString(R.string.main_email_format), Toast.LENGTH_SHORT)
                 toast.show()
                 return@setOnClickListener

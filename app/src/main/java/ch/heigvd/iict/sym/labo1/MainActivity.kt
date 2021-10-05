@@ -4,6 +4,7 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
+import android.util.Patterns
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -17,10 +18,7 @@ class MainActivity : LoggerActivity() {
     // ceci est fait juste pour simplifier ce premier laboratoire,
     // mais il est évident que de hardcoder ceux-ci est une pratique à éviter à tout prix...
     // /!\ listOf() retourne une List<T> qui est immuable
-    private var credentials = listOf(
-                                Pair("user1@heig-vd.ch","1234"),
-                                Pair("user2@heig-vd.ch","abcd")
-                            )
+    private var credentials = arrayListOf(Pair("user1@heig-vd.ch", "1234"),Pair("user2@heig-vd.ch", "abcd"))
 
     // le modifieur lateinit permet de définir des variables avec un type non-null
     // sans pour autant les initialiser immédiatement
@@ -84,7 +82,7 @@ class MainActivity : LoggerActivity() {
                 return@setOnClickListener
             }
 
-            if (!emailInput!!.contains('@')){
+            if (!Patterns.EMAIL_ADDRESS.matcher(emailInput!!).matches()){
                 val toast = Toast.makeText(applicationContext, getString(R.string.main_email_format), Toast.LENGTH_SHORT)
                 toast.show()
                 return@setOnClickListener
@@ -119,16 +117,17 @@ class MainActivity : LoggerActivity() {
         }
     }
 
-    val getAndCreateNewUser = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+    private val getAndCreateNewUser = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
         if (result.resultCode == Activity.RESULT_OK) {
             val intent = result.data
 
             val newUser = Pair(
                 intent?.getStringExtra("newUser.email").toString(),
-                intent?.getStringExtra("newUser.password").toString())
+                intent?.getStringExtra("newUser.password").toString()
+            )
 
             // This recreates a new listOf() with the new user, because listOf is not mutable
-            credentials += newUser
+            credentials.add(newUser);
         }
     }
 }
