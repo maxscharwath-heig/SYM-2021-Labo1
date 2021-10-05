@@ -13,5 +13,6 @@
     <string name="main_dialog_confirm">OK</string>
     <string name="register_email">New email</string>
     <string name="register_password">New password</string>
+    <string name="register_validate_btn">Create Account</string>
 
 </resources>
