@@ -19,7 +19,8 @@ class MainActivity : LoggerActivity() {
     // ceci est fait juste pour simplifier ce premier laboratoire,
     // mais il est évident que de hardcoder ceux-ci est une pratique à éviter à tout prix...
     // /!\ listOf() retourne une List<T> qui est immuable
-    private var credentials = arrayListOf(Pair("user1@heig-vd.ch", "1234"),Pair("user2@heig-vd.ch", "abcd"))
+    private var credentials = arrayListOf(Pair("user1@heig-vd.ch", "1234"),
+                                            Pair("user2@heig-vd.ch", "abcd"))
 
     // le modifieur lateinit permet de définir des variables avec un type non-null
     // sans pour autant les initialiser immédiatement
@@ -53,7 +54,7 @@ class MainActivity : LoggerActivity() {
             //on va vider les champs de la page de login lors du clique sur le bouton Cancel
             email.text?.clear()
             password.text?.clear()
-            // on annule les éventuels messages d'erreur présents sur les champs de saisie
+            //on annule les éventuels messages d'erreur présents sur les champs de saisie
             email.error = null
             password.error = null
             return@setOnClickListener
@@ -67,15 +68,19 @@ class MainActivity : LoggerActivity() {
             //on récupère le contenu de deux champs dans des variables de type String
             val emailInput = email.text?.toString()
             val passwordInput = password.text?.toString()
+
+            //Here we create the validator that will make us able
+            //to validate the email and password fields
             val validator = Validator(applicationContext, email, password)
 
+            //check the user inputs
             if (!validator.validateNotEmpty()) {
                 // Pour les fonctions lambda, on doit préciser à quelle fonction l'appel à return
                 // doit être appliqué
                 return@setOnClickListener
             }
 
-            if (validator.validateEmailFormat()){
+            if (!validator.validateEmailFormat()){
                 return@setOnClickListener
             }
 
@@ -84,7 +89,7 @@ class MainActivity : LoggerActivity() {
                 log("The username or password is not registered")
                 val builder = AlertDialog.Builder(this)
                 //if they arent we tell the user and log the problem
-                builder.setMessage(getString(R.string.main_dialog_error_title))
+                builder.setMessage(getString(R.string.main_dialog_error_title)) 
                     .setPositiveButton(getString(R.string.main_dialog_confirm)) { dialog, id ->
                         password.text?.clear()
                     }
@@ -94,7 +99,7 @@ class MainActivity : LoggerActivity() {
                 return@setOnClickListener
             }
 
-            // If the authentication is successful we launch the next activity
+            //If the authentication is successful we launch the next activity
             val intent = Intent(this, AuthActivity::class.java).apply {
                 //here we pass a parameter to the next activity
                 putExtra("connectedEmail", emailInput)
@@ -110,7 +115,10 @@ class MainActivity : LoggerActivity() {
         }
     }
 
-    private val getAndCreateNewUser = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+    private val getAndCreateNewUser = registerForActivityResult(ActivityResultContracts
+        .StartActivityForResult()) { result: ActivityResult ->
+
+        //Get and register data from the RegisterActivity that just closed
         if (result.resultCode == Activity.RESULT_OK) {
             val intent = result.data
 

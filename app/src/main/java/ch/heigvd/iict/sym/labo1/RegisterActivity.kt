@@ -38,8 +38,12 @@ class RegisterActivity : LoggerActivity() {
 
             val emailInput = email.text?.toString()
             val passwordInput = password.text?.toString()
+
+            //Here we create the validator that will make us able
+            //to validate the email and password fields
             val validator = Validator(applicationContext, email, password)
 
+            //check the user inputs
             if (!validator.validateNotEmpty()) {
                 return@setOnClickListener
             }
