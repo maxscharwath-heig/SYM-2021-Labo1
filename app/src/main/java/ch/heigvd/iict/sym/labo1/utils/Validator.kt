@@ -23,7 +23,7 @@ class Validator (var context: Context, var email: EditText, var password: EditTe
 
       if (emailInput.isNullOrEmpty() or passwordInput.isNullOrEmpty()) {
           // on affiche un message dans les logs de l'application
-          Log.d(context.javaClass.simpleName,"Au moins un des deux champs est vide")
+          Log.d(context.javaClass.simpleName,"At least one of the two fields is empty")
           // on affiche un message d'erreur sur les champs qui n'ont pas été renseignés
           // la méthode getString permet de charger un String depuis les ressources de
           // l'application à partir de son id
@@ -47,7 +47,7 @@ class Validator (var context: Context, var email: EditText, var password: EditTe
             //if it doesn't we show a toes to the user and log the problem
             val toast = Toast.makeText(context, context.getString(R.string.main_email_format), Toast.LENGTH_SHORT)
             toast.show()
-            Log.d(context.javaClass.simpleName,"Le format de l'email n'est pas correct")
+            Log.d(context.javaClass.simpleName,"Wrong email format")
            return false
         }
         return true

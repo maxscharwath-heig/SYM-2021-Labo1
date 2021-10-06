@@ -89,7 +89,7 @@ class MainActivity : LoggerActivity() {
                 log("The username or password is not registered")
                 val builder = AlertDialog.Builder(this)
                 //if they arent we tell the user and log the problem
-                builder.setMessage(getString(R.string.main_dialog_error_title)) 
+                builder.setMessage(getString(R.string.main_dialog_error_title))
                     .setPositiveButton(getString(R.string.main_dialog_confirm)) { dialog, id ->
                         password.text?.clear()
                     }
@@ -128,7 +128,8 @@ class MainActivity : LoggerActivity() {
             )
 
             // We add the new user to the credentials list
-            credentials.add(newUser);
+            credentials.add(newUser)
+            log("new account for " + newUser.first + " has been created")
         }
     }
 }
