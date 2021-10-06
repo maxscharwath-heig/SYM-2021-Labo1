@@ -1,6 +1,6 @@
-<resources>
+    <resources>
 
-    <string name="app_name">SYM - Labo 1</string>
+    <string name="app_name" translatable="false">SYM - Labo 1</string>
     <string name="main_email_hint">Your e-mail address</string>
     <string name="main_password_hint">Your password</string>
     <string name="main_mandatory_field">Required field cannot be left blank</string>

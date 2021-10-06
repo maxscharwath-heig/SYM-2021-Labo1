@@ -1,6 +1,5 @@
 <resources>
 
-    <string name="app_name">SYM - Labo 1</string>
     <string name="main_email_hint">Votre adresse e-mail</string>
     <string name="main_password_hint">Votre mot de passe</string>
     <string name="main_mandatory_field">Le champ est requis</string>
