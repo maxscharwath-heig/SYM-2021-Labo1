@@ -48,7 +48,7 @@ class RegisterActivity : LoggerActivity() {
                 return@setOnClickListener
             }
 
-            if (validator.validateEmailFormat()){
+            if (!validator.validateEmailFormat()){
                 return@setOnClickListener
             }
 
@@ -59,6 +59,8 @@ class RegisterActivity : LoggerActivity() {
             }
 
             setResult(RESULT_OK, returnIntent)
+
+            //close this activity
             finish()
 
             return@setOnClickListener
