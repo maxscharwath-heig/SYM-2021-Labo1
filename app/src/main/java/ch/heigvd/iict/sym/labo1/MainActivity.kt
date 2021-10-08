@@ -1,3 +1,10 @@
+/**
+ * Etudiants :
+ * Nicolas Crausaz
+ * Teo Ferrari
+ * Maxime Scharwath
+ */
+
 package ch.heigvd.iict.sym.labo1
 
 import android.app.Activity
