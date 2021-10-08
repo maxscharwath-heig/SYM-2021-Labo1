@@ -42,7 +42,7 @@ open class LoggerActivity : AppCompatActivity() {
     /**
      * Logs the message and give the name of the called class as the tag
      */
-    fun log(content : String) {
+    fun log(content: String) {
         Log.d(this.javaClass.simpleName, content)
     }
 }

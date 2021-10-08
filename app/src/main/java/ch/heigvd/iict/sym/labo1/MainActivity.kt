@@ -11,11 +11,9 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
-import android.util.Patterns
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import ch.heigvd.iict.sym.labo1.utils.Validator
@@ -26,8 +24,10 @@ class MainActivity : LoggerActivity() {
     // ceci est fait juste pour simplifier ce premier laboratoire,
     // mais il est évident que de hardcoder ceux-ci est une pratique à éviter à tout prix...
     // /!\ listOf() retourne une List<T> qui est immuable
-    private var credentials = arrayListOf(Pair("user1@heig-vd.ch", "1234"),
-                                            Pair("user2@heig-vd.ch", "abcd"))
+    private var credentials = arrayListOf(
+        Pair("user1@heig-vd.ch", "1234"),
+        Pair("user2@heig-vd.ch", "abcd")
+    )
 
     // le modifieur lateinit permet de définir des variables avec un type non-null
     // sans pour autant les initialiser immédiatement
@@ -87,7 +87,7 @@ class MainActivity : LoggerActivity() {
                 return@setOnClickListener
             }
 
-            if (!validator.validateEmailFormat()){
+            if (!validator.validateEmailFormat()) {
                 return@setOnClickListener
             }
 
@@ -122,8 +122,10 @@ class MainActivity : LoggerActivity() {
         }
     }
 
-    private val getAndCreateNewUser = registerForActivityResult(ActivityResultContracts
-        .StartActivityForResult()) { result: ActivityResult ->
+    private val getAndCreateNewUser = registerForActivityResult(
+        ActivityResultContracts
+            .StartActivityForResult()
+    ) { result: ActivityResult ->
 
         //Get and register data from the RegisterActivity that just closed
         if (result.resultCode == Activity.RESULT_OK) {

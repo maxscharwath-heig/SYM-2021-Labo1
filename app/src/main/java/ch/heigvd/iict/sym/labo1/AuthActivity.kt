@@ -16,7 +16,7 @@ import ch.heigvd.iict.sym.labo1.network.ImageDownloader
  */
 class AuthActivity : LoggerActivity() {
 
-    private lateinit var connectedEmailTextView : TextView
+    private lateinit var connectedEmailTextView: TextView
     private lateinit var connectedImageView: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
